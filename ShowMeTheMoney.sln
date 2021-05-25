@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.StockAnalyze
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.CompanyBuilder", "ShowMeTheMoney.CompanyBuilder\ShowMeTheMoney.CompanyBuilder.csproj", "{2F0E2014-FEB7-4199-BFAF-043A2C0C2F1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.Database", "ShowMeTheMoney.Database\ShowMeTheMoney.Database.csproj", "{D1B3FEDF-E15D-4956-9528-E651E5CCD904}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.Core", "ShowMeTheMoney.Core\ShowMeTheMoney.Core.csproj", "{14131415-D006-4C05-9892-487C72295A4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{2F0E2014-FEB7-4199-BFAF-043A2C0C2F1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F0E2014-FEB7-4199-BFAF-043A2C0C2F1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F0E2014-FEB7-4199-BFAF-043A2C0C2F1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1B3FEDF-E15D-4956-9528-E651E5CCD904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1B3FEDF-E15D-4956-9528-E651E5CCD904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1B3FEDF-E15D-4956-9528-E651E5CCD904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1B3FEDF-E15D-4956-9528-E651E5CCD904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14131415-D006-4C05-9892-487C72295A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14131415-D006-4C05-9892-487C72295A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14131415-D006-4C05-9892-487C72295A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14131415-D006-4C05-9892-487C72295A4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

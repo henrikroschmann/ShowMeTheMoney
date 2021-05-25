@@ -183,7 +183,7 @@
                     </Grid.RowDefinitions>
                     <Frame  Grid.Row="0" Background="#fefeff" x:Name="ContentFrame" NavigationUIVisibility="Hidden" />
                     <TextBlock Grid.Row="1" Text="Log information"></TextBlock>
-                    <TextBox Grid.Row="2" x:Name="LogOutput" VerticalScrollBarVisibility="Auto"  TextWrapping="Wrap" Text="" />
+                    <TextBox Grid.Row="2" x:Name="LogOutput" VerticalScrollBarVisibility="Auto"  TextWrapping="Wrap" Text="" TextChanged="LogOutput_TextChanged"/>
                 </Grid>
             </Border>
             <Button Grid.Row="0" Grid.Column="4" fa:Awesome.Content="Close" Foreground="Black"

@@ -1,6 +1,7 @@
-﻿using ShowMeTheMoney.StockAnalyzer.Models;
+﻿using ShowMeTheMoney.Core;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ShowMeTheMoney
 {
@@ -13,21 +14,36 @@ namespace ShowMeTheMoney
         {
             InitializeComponent();
 
+            ContentFrame.Content = new Pages.Dashboard();
             // Logging
             Logger.WriteEvent += WriteEventHandler;
-
-            Logger.WriteLine("Hello Logger has been initialized");
+            Logger.WriteLine("Logger initialized");
         }
 
         #region LogInformation
 
+        /// <summary>
+        /// Write to the logger
+        /// </summary>
+        /// <param name="message"></param>
         private void WriteEventHandler(string message)
         {
-            /// To handle event from other treads we need dispatching. 
+            /// To handle event from other treads we need dispatching.
             LogOutput.Dispatcher.BeginInvoke(new Action(() => LogOutput.AppendText(message)));
         }
 
+        /// <summary>
+        /// Text change event for to show the most recent log
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LogOutput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LogOutput.ScrollToEnd();
+        }
+
         #endregion LogInformation
+
         #region Buttons
 
         /// <summary>
@@ -41,34 +57,30 @@ namespace ShowMeTheMoney
             DragMove();
         }
 
-        private void Overview_OnClick_OnClick(object sender, RoutedEventArgs e)
-        {
-        }
+        private void Overview_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.Dashboard();
 
-        private void StockAnalyzer_OnClick_OnClick(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.Content = "";
-        }
+        private void StockAnalyzer_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.StockList();
 
         /// <summary>
         /// Load Company page in frame
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CompanyList_OnClick_OnClick(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.Content = new Pages.Companies();
-        }
+        private void CompanyList_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.Companies();
 
-        private void Settings_OnClick_OnClick_OnClick(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.Content = "";
-        }
+        /// <summary>
+        /// Load settings page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Settings_OnClick_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.Settings();
 
-        private void QuitApplication_OnClick(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        /// <summary>
+        /// Exit the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuitApplication_OnClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
 
         #endregion Buttons
     }

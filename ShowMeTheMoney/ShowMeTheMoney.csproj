@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ShowMeTheMoney.CompanyBuilder\ShowMeTheMoney.CompanyBuilder.csproj" />
+    <ProjectReference Include="..\ShowMeTheMoney.Core\ShowMeTheMoney.Core.csproj" />
     <ProjectReference Include="..\ShowMeTheMoney.StockAnalyzer\ShowMeTheMoney.StockAnalyzer.csproj" />
   </ItemGroup>
 

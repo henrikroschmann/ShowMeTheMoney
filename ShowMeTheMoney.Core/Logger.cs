@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace ShowMeTheMoney.StockAnalyzer.Models
+namespace ShowMeTheMoney.Core
 {
     public static class Logger
     {

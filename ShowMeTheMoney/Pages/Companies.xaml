@@ -26,27 +26,10 @@
         <DataGrid Grid.Row="2" Grid.Column="1" Name="CompanyListView" IsReadOnly="True" AutoGenerateColumns="False"
                   GridLinesVisibility="None" SelectionChanged="CompanyListView_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Company Name" Binding="{Binding CompanyName}" />
-                <DataGridTextColumn Header="Company Ticker" Binding="{Binding CompanyTicker}" />
-                <DataGridTextColumn Header="Company Sector" Binding="{Binding CompanySector}" />
+                <DataGridTextColumn Header="Company Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Company Ticker" Binding="{Binding Symbol}" />
+                <DataGridTextColumn Header="Company Sector" Binding="{Binding Sector}" />
             </DataGrid.Columns>
-            <!--<DataGrid.RowDetailsTemplate>
-                <DataTemplate>
-                    <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Image  Stretch="Fill" Source="Images/Logo.png" Grid.Column="0" />
-                            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                <TextBlock FontSize="12" Text="Email: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="16" Foreground="MidnightBlue" Text="{Binding CompanyName}" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </DataGrid.RowDetailsTemplate>-->
         </DataGrid>
         <Grid Grid.Row="2" Grid.Column="2">
             <Grid.RowDefinitions>
@@ -58,7 +41,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20" />
-                <ColumnDefinition />
+                <ColumnDefinition/>
                 <ColumnDefinition />
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
@@ -77,10 +60,9 @@
                                VerticalAlignment="Center" FontSize="12" TextDecorations="{x:Null}" />
                 </Grid>
             </StackPanel>
-            <Image Grid.Column="2" Grid.Row="1" x:Name="CompanyLogo" Stretch="Uniform" VerticalAlignment="Top"
-                   HorizontalAlignment="Right" MaxHeight="150" MaxWidth="150" />
+            <Image Grid.Column="2" Grid.Row="1" x:Name="CompanyLogo"  VerticalAlignment="Top"
+                   HorizontalAlignment="Right" Width="100"/>
             <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3">
-
                 <StackPanel>
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock FontFamily="Fonts/#Dosis" FontWeight="Medium" VerticalAlignment="Center"

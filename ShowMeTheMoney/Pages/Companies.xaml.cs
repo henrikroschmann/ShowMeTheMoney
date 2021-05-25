@@ -1,6 +1,11 @@
-﻿using System.ComponentModel;
+﻿using ShowMeTheMoney.CompanyBuilder.Models;
+using ShowMeTheMoney.UserControl;
+using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace ShowMeTheMoney.Pages
 {
@@ -17,7 +22,7 @@ namespace ShowMeTheMoney.Pages
         public Companies()
         {
             InitializeComponent();
-            //CompanyListView.ItemsSource = Database.Database.Get<StockCompany>("Companies");
+            CompanyListView.ItemsSource = Database.Database.Get<Company>("Companies");
 
             _worker.DoWork += Worker_DoWork;
             _worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
@@ -33,7 +38,7 @@ namespace ShowMeTheMoney.Pages
             _worker.RunWorkerAsync();
             CompanyListView.Visibility = Visibility.Hidden;
             LoadingPanel.Visibility = Visibility.Visible;
-            //LoadingPanel.Children.Add(new Spinner());
+            LoadingPanel.Children.Add(new Spinner());
         }
 
         /// <summary>
@@ -43,7 +48,7 @@ namespace ShowMeTheMoney.Pages
         /// <param name="e"></param>
         private static void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //Database.Database.ClearCollection("Companies");
+            Database.Database.ClearCollection("Companies");
             CompanyBuilder.CompanyBuilder.GetCompanies();
         }
 
@@ -56,29 +61,29 @@ namespace ShowMeTheMoney.Pages
         {
             LoadingPanel.Visibility = Visibility.Hidden;
             CompanyListView.Visibility = Visibility.Visible;
-            // CompanyListView.ItemsSource = Database.Database.Get<StockCompany>("Companies");
+            CompanyListView.ItemsSource = Database.Database.Get<Company>("Companies");
         }
 
         private void CompanyListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var comp = (StockCompany) e.AddedItems[0];
-            //CompanyTitle.Text = comp.CompanyName;
-            //try
-            //{
-            //    CompanyLogo.Source = new BitmapImage(new Uri(comp.CompanyLogo, UriKind.Absolute));
-            //}
-            //catch (Exception exception)
-            //{
-            //    Console.WriteLine(exception);
-            //}
+            var comp = (Company)e.AddedItems[0];
+            CompanyTitle.Text = comp.Name;
+            try
+            {
+                CompanyLogo.Source = new BitmapImage(new Uri(Helpers.GetCompanyLogo.Get(comp.Name), UriKind.Absolute));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
 
-            //CompanyTicker.Text = comp.CompanyTicker;
-            //CompanyAsk.Text = comp.PriceData.Ask.ToString(CultureInfo.InvariantCulture);
-            //CompanySector.Text = comp.CompanySector;
+            CompanyTicker.Text = comp.Symbol;
+            CompanyAsk.Text = comp.PriceData.Ask.ToString(CultureInfo.InvariantCulture);
+            CompanySector.Text = comp.Sector;
             //CompanyPe.Text = comp.PriceData.TrailingPe.ToString(CultureInfo.InvariantCulture);
-            //Company52H.Text = comp.PriceData.FiftyTwoWeekHigh.ToString(CultureInfo.InvariantCulture);
-            //Company52L.Text = comp.PriceData.FiftyTwoWeekLow.ToString(CultureInfo.InvariantCulture);
-            //Company50A.Text = comp.PriceData.FiftyDayAverage.ToString(CultureInfo.InvariantCulture);
+            Company52H.Text = comp.PriceData.FiftyTwoWeekHigh.ToString(CultureInfo.InvariantCulture);
+            Company52L.Text = comp.PriceData.FiftyTwoWeekLow.ToString(CultureInfo.InvariantCulture);
+            Company50A.Text = comp.PriceData.FiftyDayAverage.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
