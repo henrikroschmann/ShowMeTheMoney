@@ -3,15 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney", "ShowMeTheMoney\ShowMeTheMoney.csproj", "{F3AB792C-E487-46F0-936C-1BD1F0C9F3D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowMeTheMoney", "ShowMeTheMoney\ShowMeTheMoney.csproj", "{F3AB792C-E487-46F0-936C-1BD1F0C9F3D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.StockAnalyzer", "ShowMeTheMoney.StockAnalyzer\ShowMeTheMoney.StockAnalyzer.csproj", "{BEC5109D-CF32-49EA-9BC8-103E2BDA0663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowMeTheMoney.StockAnalyzer", "ShowMeTheMoney.StockAnalyzer\ShowMeTheMoney.StockAnalyzer.csproj", "{BEC5109D-CF32-49EA-9BC8-103E2BDA0663}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.CompanyBuilder", "ShowMeTheMoney.CompanyBuilder\ShowMeTheMoney.CompanyBuilder.csproj", "{2F0E2014-FEB7-4199-BFAF-043A2C0C2F1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowMeTheMoney.CompanyBuilder", "ShowMeTheMoney.CompanyBuilder\ShowMeTheMoney.CompanyBuilder.csproj", "{2F0E2014-FEB7-4199-BFAF-043A2C0C2F1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.Database", "ShowMeTheMoney.Database\ShowMeTheMoney.Database.csproj", "{D1B3FEDF-E15D-4956-9528-E651E5CCD904}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowMeTheMoney.Database", "ShowMeTheMoney.Database\ShowMeTheMoney.Database.csproj", "{D1B3FEDF-E15D-4956-9528-E651E5CCD904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowMeTheMoney.Core", "ShowMeTheMoney.Core\ShowMeTheMoney.Core.csproj", "{14131415-D006-4C05-9892-487C72295A4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowMeTheMoney.Core", "ShowMeTheMoney.Core\ShowMeTheMoney.Core.csproj", "{14131415-D006-4C05-9892-487C72295A4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0B002145-1ACE-4AD2-9066-B4A042B5813E}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
