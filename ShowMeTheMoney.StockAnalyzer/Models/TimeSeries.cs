@@ -30,21 +30,6 @@ namespace ShowMeTheMoney.StockAnalyzer.Models
         public double[] Vol { get; set; }
 
         /// <summary>
-        ///     Gets the median price series.
-        /// </summary>
-        public double[] Median { get; set; }
-
-        /// <summary>
-        ///     Gets the typical price series.
-        /// </summary>
-        public double[] Typical { get; set; }
-
-        /// <summary>
-        ///     Gets the weighted price series.
-        /// </summary>
-        public double[] Weighted { get; set; }
-
-        /// <summary>
         ///     Gets the date and time series.
         /// </summary>
         public DateTime[] Time { get; set; }

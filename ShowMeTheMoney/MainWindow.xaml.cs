@@ -1,39 +1,60 @@
-﻿using ShowMeTheMoney.Core;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using ShowMeTheMoney.Core;
+using ShowMeTheMoney.Events;
+using ShowMeTheMoney.Pages;
 
 namespace ShowMeTheMoney
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly Dashboard _dashboard;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            ContentFrame.Content = new Pages.Dashboard();
+            _dashboard = new Dashboard();
+            _dashboard.Navigate += OnNavigate;
+            ContentFrame.Content = _dashboard;
             // Logging
             Logger.WriteEvent += WriteEventHandler;
             Logger.WriteLine("Logger initialized");
         }
 
+        #region Events
+
+        private void OnNavigate(object sender, Navigate e)
+        {
+            ContentFrame.Content = e.Destination switch
+            {
+                "CompanyList" => new Companies(),
+                "StockList" => new StockList(),
+                _ => ContentFrame.Content
+            };
+        }
+
+        #endregion Events
+
         #region LogInformation
 
         /// <summary>
-        /// Write to the logger
+        ///     Write to the logger
+        ///     To handle event from other treads we need dispatching.
         /// </summary>
         /// <param name="message"></param>
         private void WriteEventHandler(string message)
         {
-            /// To handle event from other treads we need dispatching.
             LogOutput.Dispatcher.BeginInvoke(new Action(() => LogOutput.AppendText(message)));
         }
 
         /// <summary>
-        /// Text change event for to show the most recent log
+        ///     Text change event for to show the most recent log
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -47,40 +68,55 @@ namespace ShowMeTheMoney
         #region Buttons
 
         /// <summary>
-        /// Event for handling movement of window
+        ///     Event for handling movement of window
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnCTLetButtonDownEvent(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void OnCTLetButtonDownEvent(object sender, MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
             DragMove();
         }
 
-        private void Overview_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.Dashboard();
+        private void Overview_OnClick_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = _dashboard;
+        }
 
-        private void StockAnalyzer_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.StockList();
+        private void StockAnalyzer_OnClick_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new StockList();
+        }
 
         /// <summary>
-        /// Load Company page in frame
+        ///     Load Company page in frame
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CompanyList_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.Companies();
+        private void CompanyList_OnClick_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new Companies();
+        }
 
         /// <summary>
-        /// Load settings page
+        ///     Load settings page
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Settings_OnClick_OnClick_OnClick(object sender, RoutedEventArgs e) => ContentFrame.Content = new Pages.Settings();
+        private void Settings_OnClick_OnClick_OnClick(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Content = new Settings();
+        }
 
         /// <summary>
-        /// Exit the application
+        ///     Exit the application
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void QuitApplication_OnClick(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
+        private void QuitApplication_OnClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
         #endregion Buttons
     }

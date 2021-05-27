@@ -21,12 +21,5 @@ namespace ShowMeTheMoney.StockAnalyzer.Rules
                 .And(c => c.IsFastStoOscBullish(14, 3));
             //.And(c => c.IsFastStoOverbought(14, 3));
         }
-
-        public static Predicate<IIndexedOhlcv> BadFruit()
-        {
-            return Rule.Create(c => c.IsFastStoBearishCross(14, 3))
-                .And(c => c.IsFastStoOscBearish(14, 3));
-            //.And(c => c.IsFastStoOversold(14, 3));
-        }
     }
 }

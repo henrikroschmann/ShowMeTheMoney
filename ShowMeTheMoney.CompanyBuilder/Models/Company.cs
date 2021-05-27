@@ -6,9 +6,9 @@
         public string Name { get; set; }
         public string Symbol { get; set; }
         public string Currency { get; set; }
-        public string ISIN { get; set; }
+        public string Isin { get; set; }
         public string Sector { get; set; }
-        public string ICBCode { get; set; }
+        public string IcbCode { get; set; }
         public string FactSheet { get; set; }
         public PriceData PriceData { get; set; }
     }

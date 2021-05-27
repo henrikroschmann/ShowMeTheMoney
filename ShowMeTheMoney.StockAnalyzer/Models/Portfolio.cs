@@ -2,8 +2,8 @@
 
 namespace ShowMeTheMoney.StockAnalyzer.Models
 {
-    public class StockList : Company, IStockList
+    public class Portfolio : Company
     {
-        public Stock Stock { get; set; }
+        public TimeSeries TimeSeries { get; set; }
     }
 }

@@ -28,8 +28,8 @@ namespace ShowMeTheMoney.Database
                                   throw new InvalidOperationException());
                 try
                 {
-                    id = (int)dataList.Select(row =>
-                       row.GetType().GetProperty("Id")?.GetValue(row, null)).LastOrDefault() + 1;
+                    id = (int) dataList.Select(row =>
+                        row.GetType().GetProperty("Id")?.GetValue(row, null)).LastOrDefault() + 1;
                 }
                 catch (NullReferenceException)
                 {
@@ -59,38 +59,19 @@ namespace ShowMeTheMoney.Database
         }
 
         ///// <summary>
-        ///// Get Item based on Id
+        ///// Get Item based on symbol
         ///// </summary>
         ///// <param name="collection"></param>
         ///// <param name="itemID"></param>
-        public static T GetItem<T>(string collection, int itemId)
+        public static T GetItem<T>(string collection, string symbol)
         {
             var dataList = new List<T>();
             if (!File.Exists(collection)) return default;
             var jsonData = File.ReadAllText(collection);
             dataList.AddRange(JsonConvert.DeserializeObject<List<T>>(jsonData) ??
                               throw new InvalidOperationException());
-            return dataList.FirstOrDefault(row => (int)row.GetType().GetProperty("Id")?.GetValue(row, null) == itemId);
-        }
-
-        ///// <summary>
-        ///// Delete data item from the  database
-        ///// </summary>
-        ///// <param name="collection"></param>
-        ///// <param name="data"></param>
-        public static void Delete<T>(string collection, int itemId)
-        {
-            var dataList = new List<T>();
-
-            if (!File.Exists(collection)) return;
-
-            var jsonData = File.ReadAllText(collection);
-            dataList.AddRange(JsonConvert.DeserializeObject<List<T>>(jsonData) ??
-                              throw new InvalidOperationException());
-            dataList.RemoveAll(row => (int)row.GetType().GetProperty("Id")?.GetValue(row, null) == itemId);
-
-            jsonData = JsonConvert.SerializeObject(dataList);
-            File.WriteAllText(collection, jsonData);
+            return dataList.FirstOrDefault(row =>
+                (string) row.GetType().GetProperty("Symbol")?.GetValue(row, null) == symbol);
         }
 
         public static void ClearCollection(string collection)

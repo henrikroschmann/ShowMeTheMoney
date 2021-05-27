@@ -5,8 +5,10 @@ using System.Windows;
 using System.Windows.Controls;
 using LiveCharts;
 using LiveCharts.Wpf;
+using ShowMeTheMoney.CompanyBuilder.Models;
 using ShowMeTheMoney.Core;
 using ShowMeTheMoney.StockAnalyzer;
+using ShowMeTheMoney.StockAnalyzer.Models;
 using ShowMeTheMoney.UserControl;
 
 namespace ShowMeTheMoney.Pages
@@ -17,7 +19,8 @@ namespace ShowMeTheMoney.Pages
     public partial class StockList : Page
     {
         private readonly BackgroundWorker _worker = new();
-        private StockAnalyzer.Models.StockList _selectedStock;
+        private IStockList _selectedStock;
+
         /// <summary>
         ///     Constructor initialize components, populate company list and subscribe to events.
         /// </summary>
@@ -82,50 +85,84 @@ namespace ShowMeTheMoney.Pages
 
         private void StocksListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _selectedStock = (StockAnalyzer.Models.StockList) e.AddedItems[0];
-            CompanyTitle.Text = _selectedStock?.Name;
-            SeriesCollection[0].Values =
-                new ChartValues<double>(_selectedStock.Stock.TimeSeries.Close.Reverse());
-            Labels = _selectedStock.Stock.TimeSeries.Time.Reverse().Select(x => x.Day.ToString()).ToArray();
-
-
-            DailyTrend.Text = _selectedStock.Stock.DailyTrend switch
+            try
             {
-                0 => "Neural",
-                1 => "Positive",
-                -1 => "Negative",
-                _ => DailyTrend.Text
-            };
+                if (e.AddedItems[0] == null) return;
+                _selectedStock = (IStockList) e.AddedItems[0];
 
-            DailyBuySignalFound.Text = _selectedStock.Stock.DailyBuySignalFound switch
-            {
-                0 => "Neural",
-                1 => "Positive",
-                -1 => "Negative",
-                _ => DailyTrend.Text
-            };
+                CompanyTitle.Text = _selectedStock?.Name;
+                if (_selectedStock == null) return;
 
-            DailySuperTrend.Text = _selectedStock.Stock.DailySuperTrend switch
-            {
-                0 => "Neural",
-                1 => "Positive",
-                -1 => "Negative",
-                _ => DailyTrend.Text
-            };
+                //validate if stock already added to the portfolio.
+                var lookup = Database.Database.GetItem<Company>("Portfolio", _selectedStock.Symbol);
+                SaveToPortfolio.IsEnabled = lookup == null;
 
-            DailyMacDSignalFound.Text = _selectedStock.Stock.DailyMacDSignalFound switch
+                SeriesCollection[0].Values =
+                    new ChartValues<double>(_selectedStock.Stock.TimeSeries.Close.Reverse());
+                Labels = _selectedStock.Stock.TimeSeries.Time.Reverse().Select(x => x.Day.ToString()).ToArray();
+
+                DailyTrend.Text = _selectedStock.Stock.DailyTrend switch
+                {
+                    0 => "Neural",
+                    1 => "Positive",
+                    -1 => "Negative",
+                    _ => DailyTrend.Text
+                };
+
+                DailyBuySignalFound.Text = _selectedStock.Stock.DailyBuySignalFound switch
+                {
+                    0 => "Neural",
+                    1 => "Positive",
+                    -1 => "Negative",
+                    _ => DailyTrend.Text
+                };
+
+                DailySuperTrend.Text = _selectedStock.Stock.DailySuperTrend switch
+                {
+                    0 => "Neural",
+                    1 => "Positive",
+                    -1 => "Negative",
+                    _ => DailyTrend.Text
+                };
+
+                DailyMacDSignalFound.Text = _selectedStock.Stock.DailyMacDSignalFound switch
+                {
+                    0 => "Neural",
+                    1 => "Positive",
+                    -1 => "Negative",
+                    _ => DailyTrend.Text
+                };
+            }
+            catch
             {
-                0 => "Neural",
-                1 => "Positive",
-                -1 => "Negative",
-                _ => DailyTrend.Text
-            };
+            }
         }
 
         private void SaveToPortfolio_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.WriteLine($"Added {_selectedStock.Name} to portfolio");
-            Database.Database.Create("Portfolio", _selectedStock);            
+            Database.Database.Create("Portfolio",
+                new Portfolio
+                {
+                    Name = _selectedStock.Name,
+                    Symbol = _selectedStock.Symbol,
+                    Currency = _selectedStock.Currency,
+                    Isin = _selectedStock.Isin,
+                    Sector = _selectedStock.Sector,
+                    IcbCode = _selectedStock.IcbCode,
+                    FactSheet = _selectedStock.FactSheet,
+                    PriceData = _selectedStock.PriceData,
+                    TimeSeries = new TimeSeries
+                    {
+                        Close = new[] {_selectedStock.Stock.TimeSeries.Close[^1]},
+                        Time = new[] {_selectedStock.Stock.TimeSeries.Time[^1]},
+                        High = new[] {_selectedStock.Stock.TimeSeries.High[^1]},
+                        Low = new[] {_selectedStock.Stock.TimeSeries.Low[^1]},
+                        Open = new[] {_selectedStock.Stock.TimeSeries.Open[^1]},
+                        Vol = new[] {_selectedStock.Stock.TimeSeries.Vol[^1]}
+                    }
+                });
+            SaveToPortfolio.IsEnabled = false;
         }
     }
 }

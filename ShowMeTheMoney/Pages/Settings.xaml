@@ -15,12 +15,10 @@
                 BorderThickness="0"
                 FontSize="15"
                 FontWeight="Medium"
-                FontFamily="Fonts/#Dosis"
                 x:Name="ExportPortfolio"
-                Click="Settings_OnClick_OnClick_OnClick" Margin="0,6,0,8" d:LayoutOverrides="Height">
+                Click="ExportPortfolio_OnClick" Margin="0,6,0,8" d:LayoutOverrides="Height">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis" />
                         <Setter Property="Foreground" Value="#b0d4ff" />
                         <Setter Property="Cursor" Value="Hand" />
 
@@ -48,12 +46,10 @@
                 BorderThickness="0"
                 FontSize="15"
                 FontWeight="Medium"
-                FontFamily="Fonts/#Dosis"
                 x:Name="ImportPortfolio"
-                Click="Settings_OnClick_OnClick_OnClick" Margin="0,6,0,8" d:LayoutOverrides="Height">
+                Click="ImportPortfolio_OnClick" Margin="0,6,0,8" d:LayoutOverrides="Height">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis" />
                         <Setter Property="Foreground" Value="#b0d4ff" />
                         <Setter Property="Cursor" Value="Hand" />
 

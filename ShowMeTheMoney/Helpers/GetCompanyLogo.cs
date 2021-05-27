@@ -5,15 +5,18 @@ using System.Net;
 
 namespace ShowMeTheMoney.Helpers
 {
+    /// <summary>
+    ///     Class for retrieving a company logo
+    /// </summary>
     internal static class GetCompanyLogo
     {
         internal static string Get(string keyword)
         {
             var remoteUri = "https://www.bing.com/images/search?q=" + keyword +
-                 " logotyp&form=HDRSC3&first=1&tsc=ImageBasicHover";
+                            " logotyp&form=HDRSC3&first=1&tsc=ImageBasicHover";
 
-            var request = (HttpWebRequest)WebRequest.Create(remoteUri);
-            var response = (HttpWebResponse)request.GetResponse();
+            var request = (HttpWebRequest) WebRequest.Create(remoteUri);
+            var response = (HttpWebResponse) request.GetResponse();
 
             string data;
             using (var dataStream = response.GetResponseStream())

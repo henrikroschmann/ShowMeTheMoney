@@ -9,7 +9,7 @@ namespace ShowMeTheMoney.StockAnalyzer.Indicators
         {
             var hl = new double[candleEnumerable.Length];
             for (var index = 0; index < candleEnumerable.Length; index++)
-                hl[index] = (double)Math.Round((candleEnumerable[index].High + candleEnumerable[index].Low) / 2, 1);
+                hl[index] = (double) Math.Round((candleEnumerable[index].High + candleEnumerable[index].Low) / 2, 1);
 
             return hl;
         }

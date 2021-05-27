@@ -1,11 +1,12 @@
-﻿using ShowMeTheMoney.CompanyBuilder.Models;
-using ShowMeTheMoney.UserControl;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using ShowMeTheMoney.CompanyBuilder.Models;
+using ShowMeTheMoney.Helpers;
+using ShowMeTheMoney.UserControl;
 
 namespace ShowMeTheMoney.Pages
 {
@@ -66,11 +67,13 @@ namespace ShowMeTheMoney.Pages
 
         private void CompanyListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var comp = (Company)e.AddedItems[0];
+            var comp = (Company) e.AddedItems[0];
+            if (comp == null) return;
             CompanyTitle.Text = comp.Name;
             try
             {
-                CompanyLogo.Source = new BitmapImage(new Uri(Helpers.GetCompanyLogo.Get(comp.Name), UriKind.Absolute));
+                CompanyLogo.Source =
+                    new BitmapImage(new Uri(GetCompanyLogo.Get(comp.Name), UriKind.Absolute));
             }
             catch (Exception exception)
             {

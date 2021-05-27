@@ -6,13 +6,9 @@ namespace ShowMeTheMoney.StockAnalyzer.Indicators
     {
         internal static Trend IsTrending(double[] atr, double[] hl, TimeSeries result)
         {
-
-
-            var up = hl[^1] - 3.0 * atr[0];
             var up1 = hl[^2] - 3.0 * atr[1];
             //var isUp = result.Close[^2] > up1 ? Math.Max(up, up1) : up;
 
-            var dn = hl[^1] + 3.0 * atr[0];
             var dn1 = hl[^2] + 3.0 * atr[1];
             //var isDown = result.Close[^2] < dn1 ? Math.Min(dn, dn1) : dn;
 

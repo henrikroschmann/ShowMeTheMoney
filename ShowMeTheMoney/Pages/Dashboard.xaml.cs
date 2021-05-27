@@ -1,8 +1,14 @@
-﻿using ShowMeTheMoney.CompanyBuilder.Models;
-using ShowMeTheMoney.Events;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using LiveCharts;
+using LiveCharts.Wpf;
+using ShowMeTheMoney.CompanyBuilder.Models;
+using ShowMeTheMoney.Events;
+using ShowMeTheMoney.Helpers;
+using ShowMeTheMoney.StockAnalyzer;
+using ShowMeTheMoney.StockAnalyzer.Models;
 
 namespace ShowMeTheMoney.Pages
 {
@@ -11,14 +17,34 @@ namespace ShowMeTheMoney.Pages
     /// </summary>
     public partial class Dashboard : Page
     {
+        private readonly List<Portfolio> _portfolio;
+
         public Dashboard()
         {
             InitializeComponent();
             TbCompaniesInDb.Text = Database.Database.Get<Company>("Companies").Count.ToString();
             TbAnalyzedStocksInDb.Text = Database.Database.Get<Company>("AnalyzedStocks").Count.ToString();
             TbPortfolioStocksInDb.Text = Database.Database.Get<Company>("Portfolio").Count.ToString();
-            PortfolioListView.ItemsSource = Database.Database.Get<Company>("Portfolio");
+            _portfolio = Database.Database.Get<Portfolio>("Portfolio");
+            PortfolioListView.ItemsSource = _portfolio;
+
+            GetExpoLinesSeries.Series(_portfolio, out var lines);
+
+            SeriesCollection = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Price",
+                    Values = new ChartValues<double>(lines)
+                }
+            };
+            DataContext = this;
+
+            TbPortfolioStocksGainsInDb.Text = GetEarnings.Gainers(_portfolio);
+            TbPortfolioStocksLossesInDb.Text = GetEarnings.Losses(_portfolio);
         }
+
+        public SeriesCollection SeriesCollection { get; set; }
 
         public event EventHandler<Navigate> Navigate;
 
@@ -44,6 +70,14 @@ namespace ShowMeTheMoney.Pages
         private void StocksList_OnClick_OnClick(object sender, RoutedEventArgs e)
         {
             OnNavigate(new Navigate("StockList"));
+        }
+
+        private void RefreshPortfolio_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_portfolio != null)
+                StockRotate.Rotate(Database.Database.Get<Portfolio>("Portfolio"));
+            PortfolioListView.ItemsSource = Database.Database.Get<Portfolio>("Portfolio");
+            PortfolioListView.UpdateLayout();
         }
     }
 }

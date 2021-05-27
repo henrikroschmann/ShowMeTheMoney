@@ -6,6 +6,5 @@ namespace ShowMeTheMoney.StockAnalyzer.Models
     {
         public int IsTrending { get; set; }
         public DateTime Time { get; set; }
-
     }
 }

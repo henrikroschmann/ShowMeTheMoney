@@ -3,6 +3,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -10,7 +11,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="80" />
             <RowDefinition Height="200" />
-            <RowDefinition Height="100" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -18,14 +19,14 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Overview" FontFamily="Fonts/#Dosis" FontWeight="Medium"
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Overview" FontWeight="Medium"
                    VerticalAlignment="Center" FontSize="20" />
-        <TextBlock Grid.Row="0" Grid.Column="3" Text="Generate report" FontFamily="Fonts/#Dosis" FontWeight="Medium"
+        <TextBlock Grid.Row="0" Grid.Column="3" Text="Generate report" FontWeight="Medium"
                    VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="20" Margin="0,0,10,0" />
 
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,0,0">
-            <TextBlock Text="Companies" FontFamily="Fonts/#Dosis" FontWeight="SemiBold" />
-            <TextBlock x:Name="TbCompaniesInDb" FontFamily="Fonts/#Dosis" FontSize="35" Margin="20,0,0,0" Text="365" />
+            <TextBlock Text="Companies" FontWeight="SemiBold" />
+            <TextBlock x:Name="TbCompaniesInDb" FontSize="35" Margin="20,0,0,0" Text="365" />
             <Button
                 Foreground="Black"
                 Background="Transparent"
@@ -34,12 +35,10 @@
                 FontWeight="Medium"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                FontFamily="Fonts/#Dosis"
                 x:Name="CompList"
                 Click="CompanyList_OnClick_OnClick">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis" />
                         <Setter Property="Background" Value="Pink" />
                         <Setter Property="Cursor" Value="Hand" />
 
@@ -58,15 +57,15 @@
                         <ColumnDefinition Width="10" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="1" Text="Go to Company list" FontFamily="Fonts/#Dosis"
+                    <TextBlock Grid.Column="1" Text="Go to Company list"
                                FontWeight="SemiBold" HorizontalAlignment="center" />
                 </Grid>
             </Button>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
-            <TextBlock Text="Stocks Analyzed" FontFamily="Fonts/#Dosis" FontWeight="SemiBold" />
-            <TextBlock x:Name="TbAnalyzedStocksInDb" FontFamily="Fonts/#Dosis" FontSize="35" Margin="20,0,0,0" Text="2" />
+            <TextBlock Text="Stocks Analyzed" FontWeight="SemiBold" />
+            <TextBlock x:Name="TbAnalyzedStocksInDb" FontSize="35" Margin="20,0,0,0" Text="2" />
             <Button
                 Foreground="Black"
                 Background="Transparent"
@@ -75,12 +74,10 @@
                 FontWeight="Medium"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                FontFamily="Fonts/#Dosis"
                 x:Name="StockList"
                 Click="StocksList_OnClick_OnClick">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis" />
                         <Setter Property="Background" Value="Pink" />
                         <Setter Property="Cursor" Value="Hand" />
 
@@ -99,33 +96,46 @@
                         <ColumnDefinition Width="10" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="1" Text="Go to list of stocks" FontFamily="Fonts/#Dosis"
+                    <TextBlock Grid.Column="1" Text="Go to list of stocks"
                                FontWeight="SemiBold" HorizontalAlignment="center" />
                 </Grid>
             </Button>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="2" Margin="10,0,0,0">
-            <TextBlock Text="Portfolio" FontFamily="Fonts/#Dosis" FontWeight="SemiBold" />
-            <TextBlock x:Name="TbPortfolioStocksInDb" FontFamily="Fonts/#Dosis" FontSize="35" Margin="20,0,0,0"
+            <TextBlock Text="Portfolio" FontWeight="SemiBold" />
+            <TextBlock x:Name="TbPortfolioStocksInDb" FontSize="35" Margin="20,0,0,0"
                        Text="5" />
         </StackPanel>
 
-        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">placeholder chart</TextBox>
+
+        <wpf:CartesianChart Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Series="{Binding SeriesCollection}" />
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Portfolio" FontFamily="Fonts/#Dosis" FontWeight="Medium"
-                       VerticalAlignment="Center" FontSize="20" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="120" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Portfolio" FontWeight="Medium"
+                           VerticalAlignment="Center" FontSize="20" />
+                <Button Grid.Column="1" Height="20" Width="100" x:Name="RefreshPortfolio"
+                        Click="RefreshPortfolio_OnClick">
+                    Refresh Portfolio
+                </Button>
+            </Grid>
             <DataGrid Grid.Row="1" Name="PortfolioListView" IsReadOnly="True" AutoGenerateColumns="False"
                       GridLinesVisibility="None">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Company Name" Binding="{Binding Name}" />
                     <DataGridTextColumn Header="Company Ticker" Binding="{Binding Symbol}" />
                     <DataGridTextColumn Header="Company Sector" Binding="{Binding Sector}" />
+                    <DataGridTextColumn Header="Give" Binding="{Binding TimeSeries.Close[0]}" />
+                    <DataGridTextColumn Header="Latest Close" Binding="{Binding TimeSeries.Close[^1]}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -136,15 +146,16 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="40,0,0,0">
-                <TextBlock Text="Gains" FontFamily="Fonts/#Dosis" FontWeight="SemiBold" />
-                <TextBlock x:Name="TbPortfolioStocksGainsInDb" FontFamily="Fonts/#Dosis" FontSize="35"
-                           Margin="20,0,0,0" Text="2" Foreground="Green" />
+                <TextBlock Text="Gains" FontWeight="SemiBold" />
+                <TextBlock x:Name="TbPortfolioStocksGainsInDb" FontSize="35"
+                           Margin="20,0,0,0" Foreground="Green" />
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="40,0,0,0">
-                <TextBlock Text="Losses" FontFamily="Fonts/#Dosis" FontWeight="SemiBold" />
-                <TextBlock x:Name="TbPortfolioStocksLossesInDb" FontFamily="Fonts/#Dosis" FontSize="35"
-                           Margin="20,0,0,0" Text="5" Foreground="Red" />
+                <TextBlock Text="Losses" FontWeight="SemiBold" />
+                <TextBlock x:Name="TbPortfolioStocksLossesInDb" FontSize="35"
+                           Margin="20,0,0,0" Foreground="Red" />
             </StackPanel>
         </Grid>
+
     </Grid>
 </Page>

@@ -17,18 +17,18 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="205" />
+                <ColumnDefinition Width="215" />
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition Width="60" />
             </Grid.ColumnDefinitions>
-            <Image Stretch="Fill" Source="Images/Logo.png" Grid.Column="0" Grid.RowSpan="2" Margin="0,-20,60,-26"
+            <Image Stretch="Fill" Grid.Column="0" Grid.RowSpan="2" Margin="0,-20,60,-26"
                    Width="130" d:LayoutOverrides="VerticalAlignment" />
             <TextBlock
-                       FontWeight="Medium" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Left"
-                       Margin="0,15,0,0" Grid.Row="2"
-                       Grid.Column="0" Height="20" Width="205">
+                FontWeight="Medium" FontSize="12" VerticalAlignment="Top" HorizontalAlignment="Left"
+                Margin="0,15,0,0" Grid.Row="2"
+                Grid.Column="0" Height="20" Width="205">
                 Find Stocks on the Swedish Exchange
             </TextBlock>
             <Grid Grid.Row="2" Grid.Column="0">
@@ -181,9 +181,10 @@
                         <RowDefinition Height="20" />
                         <RowDefinition Height="100" />
                     </Grid.RowDefinitions>
-                    <Frame  Grid.Row="0" Background="#fefeff" x:Name="ContentFrame" NavigationUIVisibility="Hidden" />
-                    <TextBlock Grid.Row="1" Text="Log information"></TextBlock>
-                    <TextBox Grid.Row="2" x:Name="LogOutput" VerticalScrollBarVisibility="Auto"  TextWrapping="Wrap" Text="" TextChanged="LogOutput_TextChanged"/>
+                    <Frame Grid.Row="0" Background="#fefeff" x:Name="ContentFrame" NavigationUIVisibility="Hidden" />
+                    <TextBlock Grid.Row="1" Text="Log information" />
+                    <TextBox Grid.Row="2" x:Name="LogOutput" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"
+                             Text="" TextChanged="LogOutput_TextChanged" />
                 </Grid>
             </Border>
             <Button Grid.Row="0" Grid.Column="4" fa:Awesome.Content="Close" Foreground="Black"

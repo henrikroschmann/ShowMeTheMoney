@@ -1,10 +1,9 @@
 ﻿<Page x:Class="ShowMeTheMoney.Pages.StockList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-      xmlns:fa="http://schemas.fontawesome.io/icons/"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800">
 
@@ -22,7 +21,7 @@
             <ColumnDefinition />
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="List of trending stocks" FontFamily="Fonts/#Dosis"
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="List of trending stocks"
                    FontWeight="Medium" VerticalAlignment="Center" FontSize="20" />
 
         <StackPanel Name="LoadingPanel" Grid.Row="2" Grid.Column="1" Visibility="Hidden" />
@@ -33,7 +32,7 @@
                 <DataGridTextColumn Header="Company" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
                 <DataGridTextColumn Header="Sector" Binding="{Binding Sector}" />
-                <DataGridTextColumn Header="ISIN" Binding="{Binding ISIN}" />
+                <DataGridTextColumn Header="ISIN" Binding="{Binding Isin}" />
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="2" Grid.Column="2">
@@ -51,12 +50,8 @@
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="CompanyTitle" FontFamily="Fonts/#Dosis" FontWeight="Medium" VerticalAlignment="Center"
+            <TextBlock x:Name="CompanyTitle" FontWeight="Medium" VerticalAlignment="Center"
                        FontSize="30" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" />
-            <Button Grid.Column="3" Grid.Row="0" Margin="0,8,-4,10" Background="Transparent" x:Name="SaveToPortfolio"
-                    Click="SaveToPortfolio_OnClick">
-                <fa:FontAwesome Icon="StarOutline" />
-            </Button>
 
             <wpf:CartesianChart Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Series="{Binding SeriesCollection}">
                 <wpf:CartesianChart.AxisY>
@@ -68,48 +63,54 @@
             </wpf:CartesianChart>
 
             <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3">
+
                 <StackPanel>
                     <StackPanel Margin="0,0,0,10">
-                        <TextBlock FontFamily="Fonts/#Dosis" FontWeight="Medium" VerticalAlignment="Center"
+                        <TextBlock FontWeight="Medium" VerticalAlignment="Center"
                                    FontSize="30" Text="Trends" />
-
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                        <TextBlock FontFamily="Fonts/#Dosis" FontWeight="Medium" VerticalAlignment="Center"
+                        <TextBlock FontWeight="Medium" VerticalAlignment="Center"
                                    FontSize="12" Text="DailyBuySignalFound" TextDecorations="{x:Null}"
                                    Foreground="Gray" />
-                        <TextBlock x:Name="DailyBuySignalFound" FontFamily="Fonts/#Dosis" FontWeight="Medium"
+                        <TextBlock x:Name="DailyBuySignalFound" FontWeight="Medium"
                                    VerticalAlignment="Center" FontSize="12" TextDecorations="{x:Null}"
                                    Margin="10,0,0,0" />
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                        <TextBlock FontFamily="Fonts/#Dosis" FontWeight="Medium" VerticalAlignment="Center"
+                        <TextBlock FontWeight="Medium" VerticalAlignment="Center"
                                    FontSize="12" Text="DailySuperTrend" TextDecorations="{x:Null}"
                                    Foreground="Gray" />
-                        <TextBlock x:Name="DailySuperTrend" FontFamily="Fonts/#Dosis" FontWeight="Medium"
+                        <TextBlock x:Name="DailySuperTrend" FontWeight="Medium"
                                    VerticalAlignment="Center" FontSize="12" TextDecorations="{x:Null}"
                                    Margin="10,0,0,0" />
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                        <TextBlock FontFamily="Fonts/#Dosis" FontWeight="Medium" VerticalAlignment="Center"
+                        <TextBlock FontWeight="Medium" VerticalAlignment="Center"
                                    FontSize="12" Text="DailyMacDSignalFound" TextDecorations="{x:Null}"
                                    Foreground="Gray" />
-                        <TextBlock x:Name="DailyMacDSignalFound" FontFamily="Fonts/#Dosis" FontWeight="Medium"
+                        <TextBlock x:Name="DailyMacDSignalFound" FontWeight="Medium"
                                    VerticalAlignment="Center" FontSize="12" TextDecorations="{x:Null}"
                                    Margin="10,0,0,0" />
                     </StackPanel>
                     <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                        <TextBlock FontFamily="Fonts/#Dosis" FontWeight="Medium" VerticalAlignment="Center"
+                        <TextBlock FontWeight="Medium" VerticalAlignment="Center"
                                    FontSize="12" Text="DailyTrend" TextDecorations="{x:Null}" Foreground="Gray" />
-                        <TextBlock x:Name="DailyTrend" FontFamily="Fonts/#Dosis" FontWeight="Medium"
+                        <TextBlock x:Name="DailyTrend" FontWeight="Medium"
                                    VerticalAlignment="Center" FontSize="12" TextDecorations="{x:Null}"
                                    Margin="10,0,0,0" />
                     </StackPanel>
                 </StackPanel>
             </Grid>
-
         </Grid>
         <Button Grid.Row="3" Grid.Column="2" Margin="5" Content="Find new stocks" x:Name="FindGoodStocks"
                 Click="FindGoodStocks_OnClick" />
+
+        <Button Grid.Column="3" Margin="-90,0,0,0" Grid.Row="1" x:Name="SaveToPortfolio"
+                Click="SaveToPortfolio_OnClick" IsEnabled="False">
+            <TextBlock TextWrapping="Wrap" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment">
+                <Run Language="en-gb" Text="Add to portfolio" />
+            </TextBlock>
+        </Button>
     </Grid>
 </Page>
